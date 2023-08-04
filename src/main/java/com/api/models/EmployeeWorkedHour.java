@@ -1,8 +1,7 @@
 package com.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
-import java.util.Date;
 
 @Entity
 public class EmployeeWorkedHour {
@@ -12,18 +11,21 @@ public class EmployeeWorkedHour {
     @Column
     private Long id;
 
-    @ManyToOne @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @Column(name = "employee_id")
+    @JsonProperty("employee_id")
+    private Long employeeId;
 
     @Column(name = "worked_hours")
+    @JsonProperty("worked_hours")
     private Integer workedHours;
 
     @Column(name = "worked_date", columnDefinition = "DATE")
-    private Date workedDate;
+    @JsonProperty("worked_date")
+    private String workedDate;
 
-    public EmployeeWorkedHour(Long id, Employee employee, Integer workedHours, Date workedDate) {
+    public EmployeeWorkedHour(Long id, Long employeeId, Integer workedHours, String workedDate) {
         this.id = id;
-        this.employee = employee;
+        this.employeeId = employeeId;
         this.workedHours = workedHours;
         this.workedDate = workedDate;
     }
@@ -36,12 +38,12 @@ public class EmployeeWorkedHour {
         this.id = id;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public Integer getWorkedHours() {
@@ -52,11 +54,11 @@ public class EmployeeWorkedHour {
         this.workedHours = workedHours;
     }
 
-    public Date getWorkedDate() {
+    public String getWorkedDate() {
         return workedDate;
     }
 
-    public void setWorkedDate(Date workedDate) {
+    public void setWorkedDate(String workedDate) {
         this.workedDate = workedDate;
     }
 }

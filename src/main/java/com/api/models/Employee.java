@@ -1,5 +1,6 @@
 package com.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -11,25 +12,28 @@ public class Employee {
     @Column
     private Long id;
 
-    @ManyToOne @JoinColumn(name = "gender_id")
-    private Gender gender;
+    @Column(name = "gender_id")
+    @JsonProperty("gender_id")
+    private Long genderId;
 
-    @ManyToOne @JoinColumn(name = "job_id")
-    private Job job;
+    @Column(name = "job_id")
+    @JsonProperty("job_id")
+    private Long jobId;
 
     @Column
     private String name;
 
     @Column(name = "last_name")
+    @JsonProperty("last_name")
     private String lastName;
 
     @Column(columnDefinition = "DATE")
-    private Date birthdate;
+    private String birthdate;
 
-    public Employee(Long id, Gender gender, Job job, String name, String lastName, Date birthdate) {
+    public Employee(Long id, Long genderId, Long jobId, String name, String lastName, String birthdate) {
         this.id = id;
-        this.gender = gender;
-        this.job = job;
+        this.genderId = genderId;
+        this.jobId = jobId;
         this.name = name;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -43,20 +47,20 @@ public class Employee {
         this.id = id;
     }
 
-    public Gender getGender() {
-        return gender;
+    public Long getGenderId() {
+        return genderId;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setGenderId(Long genderId) {
+        this.genderId = genderId;
     }
 
-    public Job getJob() {
-        return job;
+    public Long getJobId() {
+        return jobId;
     }
 
-    public void setJob(Job job) {
-        this.job = job;
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
     }
 
     public String getName() {
@@ -75,11 +79,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 }
