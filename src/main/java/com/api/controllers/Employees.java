@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -82,19 +83,20 @@ public class Employees {
         return defaultResponse;
     }
 
-    @GetMapping("/get/{id}")
-    public Optional<Employee> getEmployeeById(@PathVariable Long id) {
+    public Optional<Employee> getEmployeeById(Long id) {
         if (id != null) {
             return employeeService.getEmployeeById(id);
         }
         return null;
     }
 
-    @GetMapping("/get/job/{id}")
-    public EmployeesByJobResponse getEmployeeByJobId(@PathVariable Long id) {
+    @PostMapping("/get/by-job")
+    public EmployeesByJobResponse getEmployeeByJobId(@RequestBody Map<String, Object> requestBody) {
+        Long jobId = Long.parseLong(requestBody.get("job_id").toString());
+
         EmployeesByJobResponse employeesByJobResponse = new EmployeesByJobResponse();
-        if (id != null && getJobById(id).isPresent()) {
-            List<Employee> employees = employeeService.getEmployeeByJobId(id);
+        if (jobId != null && getJobById(jobId).isPresent()) {
+            List<Employee> employees = employeeService.getEmployeeByJobId(jobId);
 
             employeesByJobResponse.setEmployees(employees);
             employeesByJobResponse.setSuccess(true);
