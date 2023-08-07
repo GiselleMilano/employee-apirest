@@ -4,16 +4,27 @@ import com.api.models.EmployeeWorkedHour;
 import com.api.repositories.IEmployeeWorkedHour;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeWorkedHourService {
-    @Autowired
-    IEmployeeWorkedHour iEmployeeWorkedHour;
+    private final IEmployeeWorkedHour iEmployeeWorkedHour;
 
-    public EmployeeWorkedHour CreateEmployeeWorkedHour(EmployeeWorkedHour data) {
-        return null;
+    @Autowired
+    public EmployeeWorkedHourService(IEmployeeWorkedHour iEmployeeWorkedHour) {
+        this.iEmployeeWorkedHour = iEmployeeWorkedHour;
     }
-    public EmployeeWorkedHour SelectEmployeeWorkedHour(EmployeeWorkedHour employeeWorkedHourId) {
-        return null;
+
+    public EmployeeWorkedHour createWorkedHour(EmployeeWorkedHour data) {
+        return iEmployeeWorkedHour.save(data);
+    }
+
+    public Optional<EmployeeWorkedHour> getWorkedHourById(Long id) {
+        return iEmployeeWorkedHour.findById(id);
+    }
+
+    public List<EmployeeWorkedHour> getWorkedHourByDate(String date) {
+        return iEmployeeWorkedHour.findByWorkedDate(date);
     }
 }
