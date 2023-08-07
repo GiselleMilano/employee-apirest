@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -103,7 +104,9 @@ public class Employees {
 
             return employeesByJobResponse;
         }
-        employeesByJobResponse.setEmployees(null);
+        List<Employee> employees = new ArrayList<>();
+
+        employeesByJobResponse.setEmployees(employees);
         employeesByJobResponse.setSuccess(false);
 
         return employeesByJobResponse;
