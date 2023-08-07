@@ -2,7 +2,9 @@ package com.api.controllers;
 
 import com.api.models.Employee;
 import com.api.models.EmployeeWorkedHour;
+import com.api.requests.TotalWorkedHoursRequest;
 import com.api.responses.DefaultResponse;
+import com.api.responses.TotalWorkedHoursResponse;
 import com.api.services.EmployeeService;
 import com.api.services.EmployeeWorkedHourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +42,24 @@ public class EmployeeWorkedHours {
         return false;
     }
 
+    private Boolean validateStartAndEndDate(String startDate, String endDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate startDateParsed = LocalDate.parse(startDate, formatter);
+            LocalDate endDateParsed = LocalDate.parse(endDate, formatter);
+
+            if (startDateParsed.isBefore(endDateParsed)) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
     private Boolean validateEmployeeId(Long id) {
         Optional<Employee> employee = employeeService.getEmployeeById(id);
-        if (!employee.isPresent()) {
+        if (employee.isPresent()) {
             return true;
         }
         return false;
@@ -52,7 +69,7 @@ public class EmployeeWorkedHours {
         if (employeeId != null && (workedHours != null && workedHours > 0) && (workedDate != null && !workedDate.isEmpty())) {
             if (validateEmployeeId(employeeId)) {
                 if (workedHours <= 20) {
-                    List<EmployeeWorkedHour> workedHoursByDate = employeeWorkedHourService.getWorkedHourByDate(workedDate);
+                    List<EmployeeWorkedHour> workedHoursByDate = employeeWorkedHourService.getWorkedHourByDateAndEmployeeId(employeeId, workedDate);
                     if (workedHoursByDate.size() == 0) {
                         if (validateWorkedDate(workedDate)) {
                             return true;
@@ -84,11 +101,25 @@ public class EmployeeWorkedHours {
         return defaultResponse;
     }
 
-    @GetMapping("/get/{id}")
-    public Optional<EmployeeWorkedHour> getWorkedHoursById(@PathVariable Long id) {
-        if (id != null) {
-            return employeeWorkedHourService.getWorkedHourById(id);
+    @PostMapping("/get/total-worked-hours")
+    public TotalWorkedHoursResponse getTotalWorkedHours(@RequestBody TotalWorkedHoursRequest data) {
+        TotalWorkedHoursResponse totalWorkedHoursResponse = new TotalWorkedHoursResponse();
+
+        totalWorkedHoursResponse.setTotal_worked_hours(null);
+        totalWorkedHoursResponse.setSuccess(false);
+
+        if (validateEmployeeId(data.getEmployeeId()) && validateStartAndEndDate(data.getStartDate(), data.getEndDate())) {
+            try {
+                Integer totalWorkedHours = employeeWorkedHourService.getTotalWorkedHoursByDateRange(data.getEmployeeId(), data.getStartDate(), data.getEndDate());
+
+                totalWorkedHoursResponse.setTotal_worked_hours(totalWorkedHours);
+                totalWorkedHoursResponse.setSuccess(true);
+
+                return totalWorkedHoursResponse;
+            } catch(Exception e) {
+                return totalWorkedHoursResponse;
+            }
         }
-        return null;
+        return totalWorkedHoursResponse;
     }
 }
