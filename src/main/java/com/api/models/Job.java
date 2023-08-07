@@ -14,12 +14,6 @@ public class Job {
     @Column(columnDefinition = "DECIMAL(9,2)")
     private Double salary;
 
-    public Job(Long id, String name, Double salary) {
-        this.id = id;
-        this.name = name;
-        this.salary = salary;
-    }
-
     public Long getId() {
         return id;
     }
@@ -43,4 +37,6 @@ public class Job {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
+
+
 }
