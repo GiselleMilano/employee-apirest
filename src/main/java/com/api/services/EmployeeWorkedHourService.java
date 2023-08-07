@@ -24,7 +24,11 @@ public class EmployeeWorkedHourService {
         return employeeWorkedHourRepository.findById(id);
     }
 
-    public List<EmployeeWorkedHour> getWorkedHourByDate(String date) {
-        return employeeWorkedHourRepository.findByWorkedDate(date);
+    public List<EmployeeWorkedHour> getWorkedHourByDateAndEmployeeId(Long employeeId, String workedDate) {
+        return employeeWorkedHourRepository.getWorkedHourByDateAndEmployeeId(employeeId, workedDate);
+    }
+
+    public Integer getTotalWorkedHoursByDateRange(Long employeeId, String startDate, String endDate) {
+        return employeeWorkedHourRepository.getTotalWorkedHoursByDateRange(employeeId, startDate, endDate);
     }
 }
