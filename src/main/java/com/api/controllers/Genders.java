@@ -36,8 +36,7 @@ public class Genders {
         return defaultResponse;
     }
 
-    @GetMapping("/get/{id}")
-    public Optional<Gender> getGenderById(@PathVariable Long id) {
+    public Optional<Gender> getGenderById(Long id) {
         if (id != null) {
             return genderService.getGenderById(id);
         }
