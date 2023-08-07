@@ -5,15 +5,31 @@ import com.api.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class EmployeeService {
-    @Autowired
-    IEmployee iEmployee;
+    private final IEmployee iEmployee;
 
-    public Employee CreateEmployee(Employee data) {
-        return null;
+    @Autowired
+    public EmployeeService(IEmployee iEmployee) {
+        this.iEmployee = iEmployee;
     }
-    public Employee SelectEmployee(Employee employeeId) {
-        return null;
+
+    public Employee createEmployee(Employee data) {
+        return iEmployee.save(data);
+    }
+
+    public Employee getEmployeeByNameAndLastName(String name, String lastName) {
+        return iEmployee.findByNameAndLastName(name, lastName);
+    }
+
+    public Optional<Employee> getEmployeeById(Long id) {
+        return iEmployee.findById(id);
+    }
+
+    public List<Employee> getEmployeeByJobId(Long id) {
+        return iEmployee.findByJobId(id);
     }
 }
