@@ -63,7 +63,7 @@ public class Employees {
         return false;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add-employee")
     public DefaultResponse addEmployee(@RequestBody Employee data) {
         DefaultResponse defaultResponse = new DefaultResponse();
 
@@ -90,7 +90,7 @@ public class Employees {
         return null;
     }
 
-    @PostMapping("/get/by-job")
+    @PostMapping("/by-job")
     public EmployeesByJobResponse getEmployeeByJobId(@RequestBody Map<String, Object> requestBody) {
         Long jobId = Long.parseLong(requestBody.get("job_id").toString());
 

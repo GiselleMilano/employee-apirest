@@ -44,7 +44,7 @@ public class Jobs {
         return false;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add-job")
     public DefaultResponse addJob(@RequestBody Job data) {
         DefaultResponse defaultResponse = new DefaultResponse();
 
@@ -66,7 +66,7 @@ public class Jobs {
         return defaultResponse;
     }
 
-    @PostMapping("/get/total-payment")
+    @PostMapping("/total-payment")
     public TotalPaymentResponse getTotalPayment(@RequestBody TotalWorkedHoursRequest data) {
         TotalPaymentResponse totalPaymentResponse = new TotalPaymentResponse();
 

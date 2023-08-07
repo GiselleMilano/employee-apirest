@@ -81,7 +81,7 @@ public class EmployeeWorkedHours {
         return false;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add-worked-hours")
     public DefaultResponse addWorkedHours(@RequestBody EmployeeWorkedHour data) {
         DefaultResponse defaultResponse = new DefaultResponse();
 
@@ -101,7 +101,7 @@ public class EmployeeWorkedHours {
         return defaultResponse;
     }
 
-    @PostMapping("/get/total-worked-hours")
+    @PostMapping("/total-worked-hours")
     public TotalWorkedHoursResponse getTotalWorkedHours(@RequestBody TotalWorkedHoursRequest data) {
         TotalWorkedHoursResponse totalWorkedHoursResponse = new TotalWorkedHoursResponse();
 

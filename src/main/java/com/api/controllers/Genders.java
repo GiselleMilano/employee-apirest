@@ -14,7 +14,7 @@ public class Genders {
     @Autowired
     GenderService genderService;
 
-    @PostMapping("/add")
+    @PostMapping("/add-gender")
     public DefaultResponse addGender(@RequestBody Gender data) {
         DefaultResponse defaultResponse = new DefaultResponse();
 
