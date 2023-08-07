@@ -2,7 +2,6 @@ package com.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Employee {
@@ -11,14 +10,6 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-
-    @Column(name = "gender_id")
-    @JsonProperty("gender_id")
-    private Long genderId;
-
-    @Column(name = "job_id")
-    @JsonProperty("job_id")
-    private Long jobId;
 
     @Column
     private String name;
@@ -30,14 +21,21 @@ public class Employee {
     @Column(columnDefinition = "DATE")
     private String birthdate;
 
-    public Employee(Long id, Long genderId, Long jobId, String name, String lastName, String birthdate) {
-        this.id = id;
-        this.genderId = genderId;
-        this.jobId = jobId;
-        this.name = name;
-        this.lastName = lastName;
-        this.birthdate = birthdate;
-    }
+    @Column(name = "gender_id")
+    @JsonProperty("gender_id")
+    private Long genderId;
+
+    @Column(name = "job_id")
+    @JsonProperty("job_id")
+    private Long jobId;
+
+    @OneToOne
+    @JoinColumn(name = "gender_id", insertable = false, updatable = false)
+    private Gender gender;
+
+    @OneToOne
+    @JoinColumn(name = "job_id", insertable = false, updatable = false)
+    private Job job;
 
     public Long getId() {
         return id;
@@ -45,22 +43,6 @@ public class Employee {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getGenderId() {
-        return genderId;
-    }
-
-    public void setGenderId(Long genderId) {
-        this.genderId = genderId;
-    }
-
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
     }
 
     public String getName() {
@@ -85,5 +67,37 @@ public class Employee {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public Long getGenderId() {
+        return genderId;
+    }
+
+    public void setGenderId(Long genderId) {
+        this.genderId = genderId;
+    }
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
     }
 }
