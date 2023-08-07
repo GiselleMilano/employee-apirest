@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IGender extends JpaRepository<Gender, Long> {
+public interface GenderRepository extends JpaRepository<Gender, Long> {
     List<Gender> findByName(String name);
 }

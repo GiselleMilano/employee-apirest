@@ -1,6 +1,6 @@
 package com.api.services;
 
-import com.api.repositories.IGender;
+import com.api.repositories.GenderRepository;
 import com.api.models.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,22 +10,22 @@ import java.util.Optional;
 
 @Service
 public class GenderService {
-    private final IGender iGender;
+    private final GenderRepository genderRepository;
 
     @Autowired
-    public GenderService(IGender iGender) {
-        this.iGender = iGender;
+    public GenderService(GenderRepository genderRepository) {
+        this.genderRepository = genderRepository;
     }
 
     public Gender createGender(Gender data) {
-        return iGender.save(data);
+        return genderRepository.save(data);
     }
 
     public Optional<Gender> getGenderById(Long id) {
-        return iGender.findById(id);
+        return genderRepository.findById(id);
     }
 
     public List<Gender> getGenderByName(String name) {
-        return iGender.findByName(name);
+        return genderRepository.findByName(name);
     }
 }

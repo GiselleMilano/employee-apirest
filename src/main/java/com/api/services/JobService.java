@@ -1,6 +1,6 @@
 package com.api.services;
 
-import com.api.repositories.IJob;
+import com.api.repositories.JobRepository;
 import com.api.models.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,22 +11,22 @@ import java.util.Optional;
 @Service
 public class JobService {
 
-    private final IJob iJob;
+    private final JobRepository jobRepository;
 
     @Autowired
-    public JobService(IJob iJob) {
-        this.iJob = iJob;
+    public JobService(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
     }
 
     public Job createJob(Job data) {
-        return iJob.save(data);
+        return jobRepository.save(data);
     }
 
     public Optional<Job> getJobById(Long id) {
-        return iJob.findById(id);
+        return jobRepository.findById(id);
     }
 
     public List<Job> getJobByName(String name) {
-        return iJob.findByName(name);
+        return jobRepository.findByName(name);
     }
 }

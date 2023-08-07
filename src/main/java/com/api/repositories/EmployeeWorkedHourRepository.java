@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IEmployeeWorkedHour extends JpaRepository<EmployeeWorkedHour, Long> {
+public interface EmployeeWorkedHourRepository extends JpaRepository<EmployeeWorkedHour, Long> {
     List<EmployeeWorkedHour> findByWorkedDate(String date);
 }

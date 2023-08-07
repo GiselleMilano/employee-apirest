@@ -85,7 +85,7 @@ public class EmployeeWorkedHours {
     }
 
     @GetMapping("/get/{id}")
-    public Optional<EmployeeWorkedHour> getWorkedHourById(@PathVariable Long id) {
+    public Optional<EmployeeWorkedHour> getWorkedHoursById(@PathVariable Long id) {
         if (id != null) {
             return employeeWorkedHourService.getWorkedHourById(id);
         }
