@@ -23,13 +23,6 @@ public class EmployeeWorkedHour {
     @JsonProperty("worked_date")
     private String workedDate;
 
-    public EmployeeWorkedHour(Long id, Long employeeId, Integer workedHours, String workedDate) {
-        this.id = id;
-        this.employeeId = employeeId;
-        this.workedHours = workedHours;
-        this.workedDate = workedDate;
-    }
-
     public Long getId() {
         return id;
     }
